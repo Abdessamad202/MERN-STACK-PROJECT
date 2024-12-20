@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017" # Expose MongoDB port (for local development)
+    volumes:
+      - mongodb_data_container:/data/db # Persist MongoDB data
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_URL: "mongodb://admin:admin@mongodb:27017/"
+    ports:
+      - "8085:8081" # Expose mongo-express interface on port 8085
+
+volumes:
+  mongodb_data_container:
+    driver: local
