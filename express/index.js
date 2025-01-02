@@ -1,17 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const productRoutes = require('./routes/product');
+const bookRoutes = require('./routes/book');
+const userRoutes = require('./routes/user');
+const reservationRoutes = require('./routes/reservation'); // Add this line
 
 const app = express();
 
 // Middleware
-app.use(bodyParser.urlencoded({extended : true}))
-// app.use(express.json());
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/products', {
+mongoose.connect('mongodb://localhost:27017/library', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -20,6 +21,9 @@ mongoose.connect('mongodb://localhost:27017/products', {
 
 // Routes
 app.use('/products', productRoutes);
+app.use('/books', bookRoutes);
+app.use('/users', userRoutes);
+app.use('/reservations', reservationRoutes); // Add this line
 
 // Start the server
 const PORT = 3000;
