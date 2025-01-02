@@ -22,7 +22,7 @@ const productController = {
 
   updateProduct: async (req, res) => {
     try {
-      const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const product = await Product.findOneAndUpdate({"ref":req.params.ref}, req.body, { new: true });
       !product ? res.status(404).json({ message: 'Product not found' }) : res.status(200).json(product);
     } catch (error) {
       res.status(400).json({ message: error.message });
