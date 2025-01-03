@@ -5,13 +5,12 @@ const Book = require('../models/Book');
 const reservationController = {
   getAllReservations: async (req, res) => {
     try {
-      const reservations = await Reservation.find().populate('user').populate('book');
+      const reservations = await Reservation.find();
       res.status(200).json(reservations);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   },
-
   createReservation: async (req, res) => {
     const { user, book, returnDate } = req.body;
 
