@@ -23,7 +23,8 @@ const register = async (req, res) => {
 
   try {
     await user.save();
-    res.status(201).json({ userId: user._id });
+    const token = jwt.sign({ _id: user._id }, process.env.MY_SECRET_KEY);
+    res.header('auth-token', token).json({ token,userId: user._id });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -40,7 +41,7 @@ const login = async (req, res) => {
   if (!validPass) return res.status(400).json({ message: 'Invalid password' });
 
   const token = jwt.sign({ _id: user._id }, process.env.MY_SECRET_KEY);
-  res.header('auth-token', token).json({ token });
+  res.header('auth-token', token).json({ token,userId: user._id });
 };
 
 const getAllUsers = async (req, res) => {
