@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { registerValidation, loginValidation } = require('../validation');
+const { registerValidation, loginValidation } = require('../requests/userValidation');
 const register = async (req, res) => {
   const { error } = registerValidation(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
