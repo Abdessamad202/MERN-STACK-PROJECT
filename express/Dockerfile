@@ -1,13 +1,20 @@
-FROM node:22
+# Use the official Node.js image
+FROM node:16.13.0
 
-WORKDIR /usr/src/app
+# Set the working directory in the container
+WORKDIR /app
 
+# Copy package.json and package-lock.json to install dependencies
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the rest of your app's code
 COPY . .
 
+# Expose the port your app listens on
 EXPOSE 3000
 
-CMD [ "node", "index.js" ]
+# Define the command to run your app
+CMD ["node", "index.js"]
