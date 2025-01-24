@@ -1,10 +1,7 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
-const dotenv = require('dotenv');
-dotenv.config();
-
 const register = async (req, res) => {
   const { error } = registerValidation(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
@@ -23,7 +20,7 @@ const register = async (req, res) => {
 
   try {
     await user.save();
-    const token = jwt.sign({ _id: user._id }, process.env.MY_SECRET_KEY);
+    const token = jwt.sign({ _id: user._id }, "your_secret_key");
     res.header('auth-token', token).json({ token,userId: user._id });
   } catch (error) {
     res.status(400).json({ message: error.message });
