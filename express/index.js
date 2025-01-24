@@ -9,8 +9,9 @@ const app = express();
 
 // More specific CORS configuration (recommended for production):
 const corsOptions = {
-  origin: 'http://127.0.0.1:5500', // Only allow requests from this origin
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
+  origin: ['http://localhost:4000'], // Only allow requests from this origin
+  methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'], // Allowed methods
+  allowedHeaders:["Content-Type"],
   credentials: true, // Allow sending cookies
   optionsSuccessStatus: 204 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
@@ -20,10 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/library', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect('mongodb://mongodb:27017/library')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
