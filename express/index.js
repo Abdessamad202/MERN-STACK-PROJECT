@@ -5,6 +5,7 @@ const bookRoutes = require('./routes/book');
 const userRoutes = require('./routes/user');
 const cors = require('cors');
 const reservationRoutes = require('./routes/reservation'); // Add this line
+const connectDB = require('./conn/connexion');
 const app = express();
 
 // More specific CORS configuration (recommended for production):
@@ -21,9 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://mongodb:27017/library')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB:', err));
+connectDB()
 
 // Routes
 app.use('/products', productRoutes);
