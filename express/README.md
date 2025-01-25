@@ -132,11 +132,3 @@ Standardized error responses:
 3. Commit changes
 4. Push to the branch
 5. Create a Pull Request
-
-## 📜 License
-
-[Specify your license, e.g., MIT]
-
-## 📞 Support
-
-For issues or questions, please open a GitHub issue or contact support@yourdomain.com
